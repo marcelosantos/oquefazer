@@ -1,3 +1,8 @@
+v0.0.11 (28/12/2016)
+===================
+## hotfixes
+- adicionando csrf para segurança nos formulários com django
+
 v0.0.10 (28/12/2016)
 ===================
 ## hotfixes

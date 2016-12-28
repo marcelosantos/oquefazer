@@ -18,6 +18,9 @@
 
     </head>
     <body ng-app="oquefazer.app">
+
+        {% csrf_token %}
+
         <ng-view></ng-view>
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
