@@ -1,3 +1,8 @@
+v0.0.9 (28/12/2016)
+===================
+## hotfixes
+- organizando algumas identações e comentários do projeto
+
 v0.0.8 (28/12/2016)
 ===================
 ## hotfixes

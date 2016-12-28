@@ -4,6 +4,7 @@ from django.test import TestCase
 
 from .models import Atividade
 
+""" Classe com algumas funções de testes para determinadas URLs do projeto """
 class ProjetoTest(TestCase):
 
     atividadeMock = {'titulo': 'Fazer', 'descricao': 'Compras', 'status': 'false'}
@@ -44,6 +45,7 @@ class ProjetoTest(TestCase):
         response = self.client.get('/limpar/')
         self.assertEqual(response.status_code, 200)
 
+""" Classe com algumas funções de testes de algumas propriedades da Atividade """
 class AtividadeModelTest(TestCase):
 
     def test_titulo_atividade(self):
