@@ -1,3 +1,8 @@
+v0.0.10 (28/12/2016)
+===================
+## hotfixes
+- adicionando Procfile para deploy django no heroku
+
 v0.0.9 (28/12/2016)
 ===================
 ## hotfixes
