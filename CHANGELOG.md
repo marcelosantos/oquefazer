@@ -1,3 +1,8 @@
+v0.0.5 (28/12/2016)
+===================
+## features
+- adicionando configurações para uso do bower com gerenciador de dependências do frontend
+
 v0.0.4 (28/12/2016)
 ===================
 ## features
