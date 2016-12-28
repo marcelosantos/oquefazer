@@ -1,5 +1,14 @@
 # Projeto para cadastro de atividades
 
+### Deploy no Heroku
+
+* https://oquefazer.herokuapp.com/
+
+### Executando 1 dinamo gratuito no Heroku
+
+0. entre no diretório root  da aplicação `cd pasta_raiz_do_projeto`
+0. execute `heroku ps:scale web=1`
+
 ### Dependências
 
 0. Python 2.7.x
