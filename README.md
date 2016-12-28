@@ -31,3 +31,7 @@
 0. entre no diretório root da aplicação `cd pasta_raiz_do_projeto`
 0. execute `python manage.py runserver 0.0.0.0:8000`.
 0. acesso pelo navegado `http://0.0.0.0:8000` ou `http://IP_ATUAL:8000`.
+
+### Tela inicial do Projeto
+
+![Screenshot](screenshot/screen1.png)
