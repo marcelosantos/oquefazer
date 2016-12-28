@@ -19,6 +19,13 @@
 0. entre no diretório root da aplicação `cd pasta_raiz_do_projeto`
 0. execute `python manage.py test lista`.
 
+### Instalando bibliotecas do frontend com bower (nesse projeto estou utilizando o CDN)
+
+0. instale o [bower](http://bower.io/)
+0. entre no diretório root da aplicação `cd pasta_raiz_do_projeto` onde encontra-se o `bower.json`
+0. execute `bower install`
+0. após isso faça as alterações nos imports das libs que estão no template `templates/inicial.html`
+
 ### Para rodar a aplicação
 
 0. entre no diretório root da aplicação `cd pasta_raiz_do_projeto`

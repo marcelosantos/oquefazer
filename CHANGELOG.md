@@ -1,3 +1,8 @@
+v0.0.6 (28/12/2016)
+===================
+## features
+- atualizações da documentação de instalação do bower
+
 v0.0.5 (28/12/2016)
 ===================
 ## features
