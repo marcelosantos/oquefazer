@@ -10,14 +10,17 @@ class Atividade(models.Model):
     descricao = models.TextField()
     status = models.BooleanField()
 
-    def __init__(self, titulo, descricao, status):
-        if(titulo):
-            self.__id_atividade = hashlib.sha224( str(uuid.uuid4()) ).hexdigest()
+    def __init__(self, titulo, descricao, status, id_atividade):
         self.__titulo = titulo
         self.__descricao = descricao
         self.__status = status
 
-    def salvar(self):
+        if(not id_atividade):
+            self.__id_atividade = hashlib.sha224( str(uuid.uuid4()) ).hexdigest()
+        else:
+            self.__id_atividade = id_atividade
+
+    def adicionar(self):
 
         lista_de_atividades = []
 
@@ -45,6 +48,40 @@ class Atividade(models.Model):
         if(os.path.getsize(ARQUIVO_ATIVIDADES_JSON) > 20):
             with io.open(ARQUIVO_ATIVIDADES_JSON, 'r', encoding='utf-8') as ler_atividades:
                 lista_de_atividades = json.load(ler_atividades)
+
+        return lista_de_atividades
+
+    def editar(self):
+
+        lista_de_atividades = []
+
+        if(os.path.getsize(ARQUIVO_ATIVIDADES_JSON) > 20):
+            with io.open(ARQUIVO_ATIVIDADES_JSON, 'r', encoding='utf-8') as ler_atividades:
+                lista_de_atividades = json.load(ler_atividades)
+
+        nova_atividade = {
+            'id_atividade': self.id_atividade,
+            'titulo': self.titulo,
+            'descricao': self.descricao,
+            'status': self.status
+        }
+
+        for idx, atividade in enumerate(lista_de_atividades):
+            if self.id_atividade == atividade['id_atividade']:
+                atividade = nova_atividade
+                lista_de_atividades[idx] = atividade
+
+        with io.open(ARQUIVO_ATIVIDADES_JSON, 'w', encoding='utf-8') as persiste_atividades:
+            persiste_atividades.write(unicode(json.dumps(lista_de_atividades, ensure_ascii=True)))
+
+        return True
+
+    def limpar(self):
+
+        lista_de_atividades = []
+
+        with io.open(ARQUIVO_ATIVIDADES_JSON, 'w', encoding='utf-8') as persiste_atividades:
+            persiste_atividades.write(unicode(json.dumps(lista_de_atividades, ensure_ascii=True)))
 
         return lista_de_atividades
 

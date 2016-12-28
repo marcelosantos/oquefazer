@@ -11,6 +11,8 @@
         self.form_edicao = false;
 
         self.listagem = [];
+        self.listagem_pendentes = [];
+        self.listagem_finalizados = [];
         self.atividade = {};
         self.atividade.status = false;
 
@@ -18,8 +20,27 @@
         self.listar = listar;
         self.visualizar = visualizar;
         self.editar = editar;
+        self.limpar = limpar;
 
         listar();
+
+        //Atualiza listagem
+        function atualizarListagem(atividades){
+
+            self.listagem_pendentes = [];
+            self.listagem_finalizados = [];
+
+            for (var i = 0; i < atividades.length; i++){
+                console.log(atividades[i]);
+                if(atividades[i].status == 'false'){
+                    self.listagem_pendentes.push(atividades[i]);
+                }else{
+                    self.listagem_finalizados.push(atividades[i]);
+                }
+
+            }
+
+        }
 
         //Função para adicionar atividade
         function adicionar(atividade) {
@@ -31,34 +52,40 @@
             };
 
             $http.post('/adicionar/', atividade)
-                .then(function (response) {
-                        self.listagem = response.data;
-                    },
-                    function () {
-                        var ERRO = "<p>Erro ao criar atividade</p>";
-                        $(".formulario-de-cadastro").prepend(ERRO);
-                        console.log(ERRO);
-                    }
-                );
+                .then(sucessoAdicao,erroAdicao);
 
         };
+
+        function sucessoAdicao (response) {
+            self.listagem = response.data;
+            atualizarListagem(self.listagem);
+            Materialize.toast('Atividade cadastrada com sucesso!', 4000);
+            self.atividade = {};
+            self.atividade.status = false;
+        }
+
+        function erroAdicao() {
+            var ERRO = "Erro ao criar atividade";
+            Materialize.toast(ERRO, 6000);
+        }
 
         //Função para listar atividades
         function listar() {
 
             $http.get('/listar/')
-                .then(function (response) {
-                        console.log(response);
-                        self.listagem = response.data;
-                    },
-                    function () {
-                        var ERRO = "<p>Erro ao listar atividades</p>";
-                        $(".nao-existem-atividades .white-text").append(ERRO);
-                        console.log(ERRO);
-                    }
-                );
+                .then(sucessoListagem,erroListagem);
 
         };
+
+        function sucessoListagem (response) {
+            self.listagem = response.data;
+            atualizarListagem(self.listagem);
+        }
+
+        function erroListagem() {
+            var ERRO = "Erro ao listar atividades";
+            Materialize.toast(ERRO, 6000);
+        }
 
         //Função para visualizar atividade
         function visualizar(atividade){
@@ -66,32 +93,56 @@
             self.form_cadastro = false;
             self.form_edicao = true;
 
+            $(".formulario-de-edicao #titulo").focus();
+
             self.atividadeEdicao = atividade;
 
         }
 
         //Função para editar atividade
-        function editar(atividade) {
+        function editar() {
 
-            self.atividade = {
-                "id_atividade": atividade.id_atividade,
-                "titulo": atividade.titulo,
-                "descricao": atividade.descricao,
-                "status": atividade.status
-            };
-
-            $http.post('/editar/', atividade)
-                .then(function (response) {
-                        self.listagem = response.data;
-                    },
-                    function () {
-                        var ERRO = "<p>Erro ao editar atividade</p>";
-                        $(".formulario-de-cadastro").prepend(ERRO);
-                        console.log(ERRO);
-                    }
-                );
+            $http.post('/editar/', self.atividadeEdicao)
+                .then(sucessoEdicao,erroEdicao);
 
         };
+
+        function sucessoEdicao(response) {
+
+            self.listagem = response.data;
+            atualizarListagem(self.listagem);
+            self.form_cadastro = true;
+            self.form_edicao = false;
+            self.atividadeEdicao = {};
+            Materialize.toast('Atividade atualizada com sucesso!', 4000);
+
+        }
+
+        function erroEdicao() {
+            var ERRO = "Erro ao editar atividade";
+            Materialize.toast(ERRO, 6000);
+        }
+
+        //Função para remover todas as atividades cadastradas
+        function limpar() {
+
+            $http.post('/limpar/')
+                .then(sucessoLimpeza,erroLimpeza);
+
+        };
+
+        function sucessoLimpeza(response) {
+
+            self.listagem = response.data;
+            atualizarListagem(self.listagem);
+            Materialize.toast('Atividades removidas com sucesso!', 4000);
+
+        }
+
+        function erroLimpeza() {
+            var ERRO = "Erro ao remover atividades";
+            Materialize.toast(ERRO, 6000);
+        }
 
 
     }

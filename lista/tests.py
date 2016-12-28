@@ -24,12 +24,20 @@ class ProjetoTest(TestCase):
         response = self.client.get('/listar/')
         self.assertContains(response, 'titulo')
 
+    def test_edita_atividade(self):
+        response = self.client.post('/editar/', self.atividadeMock)
+        self.assertEqual(response.status_code, 200)
+
+    def test_limpar_atividades(self):
+        response = self.client.get('/limpar/')
+        self.assertEqual(response.status_code, 200)
+
 class AtividadeModelTest(TestCase):
 
     def test_titulo_atividade(self):
-        atividade = Atividade(titulo="Fazer Compras", descricao=None, status=None)
+        atividade = Atividade(titulo="Fazer Compras", descricao=None, status=None, id_atividade=None)
         self.assertEqual("Fazer Compras", atividade.titulo)
 
     def test_descricao_atividade(self):
-        atividade = Atividade(titulo=None, descricao="Preciso fazer as compras da semana", status=None)
+        atividade = Atividade(titulo=None, descricao="Preciso fazer as compras da semana", status=None, id_atividade=None)
         self.assertEqual("Preciso fazer as compras da semana", atividade.descricao)

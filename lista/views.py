@@ -12,8 +12,8 @@ from .models import Atividade
 class ErroGeral(Exception):
     pass
 
-""" Função para persistir as informações da ativiade """
-def adiciona(request):
+""" Função para persistir as informações da atividade """
+def adicionar(request):
 
     try:
 
@@ -26,10 +26,10 @@ def adiciona(request):
             status = request.POST.get('status')
 
             """ Cria um modelo de Atividade e atribui o título e descrição enviados no form """
-            atividade = Atividade(titulo, descricao, status)
+            atividade = Atividade(titulo, descricao, status, None)
 
             """ Persite as informações """
-            atividade.salvar()
+            atividade.adicionar()
 
             """ Responde com o conteúdo existente no arquivo """
             return HttpResponse(json.dumps(atividade.listar()), content_type='application/json')
@@ -41,7 +41,7 @@ def adiciona(request):
     except Exception, ex:
         raise ErroGeral("Houve um erro! ", ex)
 
-def lista(request):
+def listar(request):
 
     try:
 
@@ -49,7 +49,61 @@ def lista(request):
         if(request.method == 'GET'):
 
             """ Cria um modelo de Atividade """
-            atividade = Atividade(None,None,None)
+            atividade = Atividade(None,None,None,None)
+
+            """ Responde com o conteúdo existente no arquivo """
+            return HttpResponse(json.dumps(atividade.listar()), content_type='application/json')
+        else:
+
+            """ Se a requisição não for pelo método POST """
+            return HttpResponse(json.dumps({'message':'Erro ao processar requisição'}), content_type='application/json')
+
+    except Exception, ex:
+        raise ErroGeral("Houve um erro! ", ex)
+
+""" Função para persistir as informações da atividade editada """
+def editar(request):
+
+    try:
+
+        """ Se a requisição for pelo método POST """
+        if(request.method == 'POST' and request.POST.get('id_atividade')):
+
+            """ Recebendo os valores do form """
+            id_atividade = request.POST.get('id_atividade')
+            titulo = request.POST.get('titulo')
+            descricao = request.POST.get('descricao')
+            status = request.POST.get('status')
+
+            """ Cria um modelo de Atividade e atribui o título e descrição enviados no form """
+            atividade = Atividade(titulo, descricao, status, id_atividade)
+
+            """ Persite as informações """
+            atividade.editar()
+
+            """ Responde com o conteúdo existente no arquivo """
+            return HttpResponse(json.dumps(atividade.listar()), content_type='application/json')
+        else:
+
+            """ Se a requisição não for pelo método POST """
+            return HttpResponse(json.dumps({'message':'Erro ao processar requisição'}), content_type='application/json')
+
+    except Exception, ex:
+        raise ErroGeral("Houve um erro! ", ex)
+
+""" Função para remover todas as atividades cadastradas """
+def limpar(request):
+
+    try:
+
+        """ Se a requisição for pelo método POST """
+        if(request.method == 'POST'):
+
+            """ Cria um modelo de Atividade """
+            atividade = Atividade(None,None,None,None)
+
+            """ Remove todas as atividades """
+            atividade.limpar()
 
             """ Responde com o conteúdo existente no arquivo """
             return HttpResponse(json.dumps(atividade.listar()), content_type='application/json')
