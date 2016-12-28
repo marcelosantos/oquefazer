@@ -88,7 +88,7 @@
         function sucessoListagem (response) {
             self.listagem = response.data;
             atualizarListagem(self.listagem);
-            $timeout(listar, 10000);
+            //$timeout(listar, 10000);
         }
 
         function erroListagem() {

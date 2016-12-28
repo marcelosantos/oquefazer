@@ -1,3 +1,8 @@
+v0.0.16 (28/12/2016)
+===================
+## hotfixes
+- retirando link do menu topo e colocando em holding a atuaização das atividades a cada 10 seg
+
 v0.0.15 (28/12/2016)
 ===================
 ## hotfixes
