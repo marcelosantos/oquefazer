@@ -66,7 +66,7 @@ def editar(request):
 
     try:
 
-        """ Se a requisição for pelo método POST """
+        """ Se a requisição for pelo método POST e existir um id de atividade """
         if(request.method == 'POST' and request.POST.get('id_atividade')):
 
             """ Recebendo os valores do form """
@@ -120,17 +120,71 @@ def excluir(request):
 
     try:
 
-        """ Se a requisição for pelo método POST """
+        """ Se a requisição for pelo método POST e existir um id de atividade """
         if(request.method == 'POST' and request.POST.get('id_atividade')):
 
             """ Recebendo os valores do form """
             id_atividade = request.POST.get('id_atividade')
 
-            """ Cria um modelo de Atividade e basenado-se no id da atividade enviados no form """
+            """ Cria um modelo de Atividade e baseando-se no id da atividade enviado no form """
             atividade = Atividade(None, None, None, id_atividade)
 
             """ Persite as informações """
             atividade.excluir()
+
+            """ Responde com o conteúdo existente no arquivo """
+            return HttpResponse(json.dumps(atividade.listar()), content_type='application/json')
+        else:
+
+            """ Se a requisição não for pelo método POST """
+            return HttpResponse(json.dumps({'message':'Erro ao processar requisição'}), content_type='application/json')
+
+    except Exception, ex:
+        raise ErroGeral("Houve um erro! ", ex)
+
+""" Função para finalizar uma atividade """
+def finalizar(request):
+
+    try:
+
+        """ Se a requisição for pelo método POST e existir um id de atividade """
+        if(request.method == 'POST' and request.POST.get('id_atividade')):
+
+            """ Recebendo os valores do form """
+            id_atividade = request.POST.get('id_atividade')
+
+            """ Cria um modelo de Atividade e baseando-se no id da atividade enviado no form """
+            atividade = Atividade(None, None, None, id_atividade)
+
+            """ Persite as informações """
+            atividade.finalizar()
+
+            """ Responde com o conteúdo existente no arquivo """
+            return HttpResponse(json.dumps(atividade.listar()), content_type='application/json')
+        else:
+
+            """ Se a requisição não for pelo método POST """
+            return HttpResponse(json.dumps({'message':'Erro ao processar requisição'}), content_type='application/json')
+
+    except Exception, ex:
+        raise ErroGeral("Houve um erro! ", ex)
+
+""" Função para tornar uma atividade pendente novamente """
+def pendenciar(request):
+
+    try:
+
+        """ Se a requisição for pelo método POST e existir um id de atividade """
+        if(request.method == 'POST' and request.POST.get('id_atividade')):
+
+            """ Recebendo os valores do form """
+            id_atividade = request.POST.get('id_atividade')
+
+            """ Cria um modelo de Atividade e baseando-se no id da atividade enviado no form """
+            atividade = Atividade(None, None, None, id_atividade)
+
+            """ Persite as informações """
+            atividade.pendenciar()
 
             """ Responde com o conteúdo existente no arquivo """
             return HttpResponse(json.dumps(atividade.listar()), content_type='application/json')

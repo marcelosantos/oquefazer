@@ -92,11 +92,15 @@
                     <div class="card-content white-text">
                         <span class="card-title" ng-bind="'Título: ' + atividade.titulo"></span>
                         <p ng-bind="'Descrição: ' + atividade.descricao"></p>
-                        <p ng-bind="atividade.status != 'true' ? 'Status: Pendente' : 'Status: Finalizado'"></p>
+                        <p ng-bind="'Criação: ' + atividade.dt_criacao"></p>
+                        <p ng-bind="atividade.status != 'true' ? 'Situação: Pendente' : 'Situação: Finalizado'"></p>
                     </div>
                     <div class="card-action center">
                         <button class="btn" ng-click="vm.visualizar(atividade)">Editar</button>
                         <button ng-disabled="!vm.form_cadastro" class="btn red" ng-click="vm.excluir(atividade)">x</button>
+                    </div>
+                    <div class="card-action center">
+                        <button ng-disabled="!vm.form_cadastro" class="btn green" ng-click="vm.finalizar(atividade)">Finalizar</button>
                     </div>
                 </div>
             </div>
@@ -131,11 +135,15 @@
                     <div class="card-content">
                         <span class="card-title" ng-bind="'Título: ' + atividade.titulo"></span>
                         <p ng-bind="'Descrição: ' + atividade.descricao"></p>
-                        <p ng-bind="atividade.status != 'true' ? 'Status: Pendente' : 'Status: Finalizado'"></p>
+                        <p ng-bind="'Criação: ' + atividade.dt_criacao"></p>
+                        <p ng-bind="atividade.status != 'true' ? 'Situação: Pendente' : 'Situação: Finalizado'"></p>
                     </div>
                     <div class="card-action center">
                         <button disabled class="btn" ng-click="vm.visualizar(atividade)">Editar</button>
                         <button ng-disabled="!vm.form_cadastro" class="btn red" ng-click="vm.excluir(atividade)">x</button>
+                    </div>
+                    <div class="card-action center">
+                        <button ng-disabled="!vm.form_cadastro" class="btn green" ng-click="vm.pendenciar(atividade)">Tornar Pendente</button>
                     </div>
                 </div>
             </div>

@@ -28,12 +28,20 @@ class ProjetoTest(TestCase):
         response = self.client.post('/editar/', self.atividadeMock)
         self.assertEqual(response.status_code, 200)
 
-    def test_limpar_atividades(self):
-        response = self.client.get('/limpar/')
-        self.assertEqual(response.status_code, 200)
-
     def test_excluir_atividade(self):
         response = self.client.get('/excluir/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_finalizar_atividade(self):
+        response = self.client.get('/finalizar/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_tornar_pendenciar_atividade(self):
+        response = self.client.get('/pendenciar/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_limpar_atividades(self):
+        response = self.client.get('/limpar/')
         self.assertEqual(response.status_code, 200)
 
 class AtividadeModelTest(TestCase):

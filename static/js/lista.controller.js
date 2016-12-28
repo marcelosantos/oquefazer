@@ -5,6 +5,7 @@
 
     function ListaController ($scope, $http, $location) {
 
+        //Declaração de propriedades do controller
         var self = this;
 
         self.form_cadastro = true;
@@ -22,6 +23,8 @@
         self.editar = editar;
         self.limpar = limpar;
         self.excluir = excluir;
+        self.finalizar = finalizar;
+        self.pendenciar = pendenciar;
 
         listar();
 
@@ -171,6 +174,56 @@
 
         function erroExclusao() {
             var ERRO = "Erro ao remover atividade";
+            Materialize.toast(ERRO, 6000);
+        }
+
+        //Função para finalizar atividade
+        function finalizar(atividade) {
+
+            self.atividade = {
+                "id_atividade": atividade.id_atividade,
+            };
+
+            $http.post('/finalizar/', self.atividade)
+                .then(sucessoFinalizacao,erroFinalizacao);
+
+        };
+
+        function sucessoFinalizacao(response) {
+
+            self.listagem = response.data;
+            atualizarListagem(self.listagem);
+            Materialize.toast('Atividade finalizada com sucesso!', 4000);
+
+        }
+
+        function erroFinalizacao() {
+            var ERRO = "Erro ao finalizar atividade";
+            Materialize.toast(ERRO, 6000);
+        }
+
+        //Função para tornar uma atividade pendente novamente
+        function pendenciar(atividade) {
+
+            self.atividade = {
+                "id_atividade": atividade.id_atividade,
+            };
+
+            $http.post('/pendenciar/', self.atividade)
+                .then(sucessoPendenciacao,erroPendenciacao);
+
+        };
+
+        function sucessoPendenciacao(response) {
+
+            self.listagem = response.data;
+            atualizarListagem(self.listagem);
+            Materialize.toast('Atividade pendente novamente!', 4000);
+
+        }
+
+        function erroPendenciacao() {
+            var ERRO = "Erro ao tornar atividade pendente";
             Materialize.toast(ERRO, 6000);
         }
 
