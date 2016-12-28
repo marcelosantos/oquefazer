@@ -34,14 +34,28 @@ class Atividade(models.Model):
         else:
             self.__id_atividade = id_atividade
 
-    """ Método reponsável por adicionar uma nova atividade """
-    def adicionar(self):
+    """ Retornando lista de atividades, quando existente """
+    def atividades_existentes(self):
 
         lista_de_atividades = []
 
         if(os.path.getsize(ARQUIVO_ATIVIDADES_JSON) > 20):
             with io.open(ARQUIVO_ATIVIDADES_JSON, 'r', encoding='utf-8') as ler_atividades:
                 lista_de_atividades = json.load(ler_atividades)
+
+        return lista_de_atividades
+
+    def persiste_atividades(self, lista_de_atividades):
+
+        with io.open(ARQUIVO_ATIVIDADES_JSON, 'w', encoding='utf-8') as persiste_atividades:
+            persiste_atividades.write(unicode(json.dumps(lista_de_atividades, ensure_ascii=True)))
+
+        return True
+
+    """ Método reponsável por adicionar uma nova atividade """
+    def adicionar(self):
+
+        lista_de_atividades = self.atividades_existentes()
 
         nova_atividade = {
             'id_atividade': self.id_atividade,
@@ -52,30 +66,21 @@ class Atividade(models.Model):
         }
         lista_de_atividades.append(nova_atividade)
 
-        with io.open(ARQUIVO_ATIVIDADES_JSON, 'w', encoding='utf-8') as persiste_atividades:
-            persiste_atividades.write(unicode(json.dumps(lista_de_atividades, ensure_ascii=True)))
+        self.persiste_atividades(lista_de_atividades)
 
         return True
 
     """ Método reponsável pela listagem das atividades """
     def listar(self):
 
-        lista_de_atividades = []
-
-        if(os.path.getsize(ARQUIVO_ATIVIDADES_JSON) > 20):
-            with io.open(ARQUIVO_ATIVIDADES_JSON, 'r', encoding='utf-8') as ler_atividades:
-                lista_de_atividades = json.load(ler_atividades)
+        lista_de_atividades = self.atividades_existentes()
 
         return lista_de_atividades
 
     """ Método reponsável por editar uma atividade existente """
     def editar(self):
 
-        lista_de_atividades = []
-
-        if(os.path.getsize(ARQUIVO_ATIVIDADES_JSON) > 20):
-            with io.open(ARQUIVO_ATIVIDADES_JSON, 'r', encoding='utf-8') as ler_atividades:
-                lista_de_atividades = json.load(ler_atividades)
+        lista_de_atividades = self.atividades_existentes()
 
         nova_atividade = {
             'id_atividade': self.id_atividade,
@@ -90,8 +95,7 @@ class Atividade(models.Model):
                 atividade = nova_atividade
                 lista_de_atividades[idx] = atividade
 
-        with io.open(ARQUIVO_ATIVIDADES_JSON, 'w', encoding='utf-8') as persiste_atividades:
-            persiste_atividades.write(unicode(json.dumps(lista_de_atividades, ensure_ascii=True)))
+        self.persiste_atividades(lista_de_atividades)
 
         return True
 
@@ -100,36 +104,26 @@ class Atividade(models.Model):
 
         lista_de_atividades = []
 
-        with io.open(ARQUIVO_ATIVIDADES_JSON, 'w', encoding='utf-8') as persiste_atividades:
-            persiste_atividades.write(unicode(json.dumps(lista_de_atividades, ensure_ascii=True)))
+        self.persiste_atividades(lista_de_atividades)
 
         return lista_de_atividades
 
     """ Método reponsável por excluir uma atividade existente """
     def excluir(self):
 
-        lista_de_atividades = []
-
-        if(os.path.getsize(ARQUIVO_ATIVIDADES_JSON) > 20):
-            with io.open(ARQUIVO_ATIVIDADES_JSON, 'r', encoding='utf-8') as ler_atividades:
-                lista_de_atividades = json.load(ler_atividades)
+        lista_de_atividades = self.atividades_existentes()
 
         for idx, atividade in enumerate(lista_de_atividades):
             if self.id_atividade == atividade['id_atividade']:
                 del lista_de_atividades[idx]
 
-        with io.open(ARQUIVO_ATIVIDADES_JSON, 'w', encoding='utf-8') as persiste_atividades:
-            persiste_atividades.write(unicode(json.dumps(lista_de_atividades, ensure_ascii=True)))
+        self.persiste_atividades(lista_de_atividades)
 
         return True
 
     def finalizar(self):
 
-        lista_de_atividades = []
-
-        if(os.path.getsize(ARQUIVO_ATIVIDADES_JSON) > 20):
-            with io.open(ARQUIVO_ATIVIDADES_JSON, 'r', encoding='utf-8') as ler_atividades:
-                lista_de_atividades = json.load(ler_atividades)
+        lista_de_atividades = self.atividades_existentes()
 
         for idx, atividade in enumerate(lista_de_atividades):
             print atividade
@@ -144,19 +138,14 @@ class Atividade(models.Model):
                 atividade = finalizar_atividade
                 lista_de_atividades[idx] = atividade
 
-        with io.open(ARQUIVO_ATIVIDADES_JSON, 'w', encoding='utf-8') as persiste_atividades:
-            persiste_atividades.write(unicode(json.dumps(lista_de_atividades, ensure_ascii=True)))
+        self.persiste_atividades(lista_de_atividades)
 
         return True
 
     """ Método reponsável por tornar pendente novamente uma atividade que foi finalizada """
     def pendenciar(self):
 
-        lista_de_atividades = []
-
-        if(os.path.getsize(ARQUIVO_ATIVIDADES_JSON) > 20):
-            with io.open(ARQUIVO_ATIVIDADES_JSON, 'r', encoding='utf-8') as ler_atividades:
-                lista_de_atividades = json.load(ler_atividades)
+        lista_de_atividades = self.atividades_existentes()
 
         for idx, atividade in enumerate(lista_de_atividades):
             print atividade
@@ -171,8 +160,7 @@ class Atividade(models.Model):
                 atividade = finalizar_atividade
                 lista_de_atividades[idx] = atividade
 
-        with io.open(ARQUIVO_ATIVIDADES_JSON, 'w', encoding='utf-8') as persiste_atividades:
-            persiste_atividades.write(unicode(json.dumps(lista_de_atividades, ensure_ascii=True)))
+        self.persiste_atividades(lista_de_atividades)
 
         return True
 
