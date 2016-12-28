@@ -1,28 +1,40 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 from django.db import models
 from oquefazer.settings import ARQUIVO_ATIVIDADES_JSON
 from datetime import date
 import io, json, os, hashlib, uuid
 
+""" Classe modelo responsável por persistir os dados no arquivo JSON """
 class Atividade(models.Model):
 
+    """ Alguns atributos da classe """
     id_atividade = models.CharField(max_length=500)
     titulo = models.CharField(max_length=500)
     descricao = models.TextField()
     status = models.BooleanField()
 
+    """ Constante contendo a data de HOJE """
     HOJE = date.today().isoformat()
 
+    """ Contrutor da classe recebendo alguns valores no momento da instanciação """
     def __init__(self, titulo, descricao, status, id_atividade):
         self.__titulo = titulo
         self.__descricao = descricao
         self.__status = status
 
+
+        """
+        Se não existir a propriedade id_atividade é gerada de forma automática,
+        Se existir a atual passando por parâmetro será utilizada
+        """
         if(not id_atividade):
             self.__id_atividade = hashlib.sha224( str(uuid.uuid4()) ).hexdigest()
         else:
             self.__id_atividade = id_atividade
 
+    """ Método reponsável por adicionar uma nova atividade """
     def adicionar(self):
 
         lista_de_atividades = []
@@ -45,6 +57,7 @@ class Atividade(models.Model):
 
         return True
 
+    """ Método reponsável pela listagem das atividades """
     def listar(self):
 
         lista_de_atividades = []
@@ -55,6 +68,7 @@ class Atividade(models.Model):
 
         return lista_de_atividades
 
+    """ Método reponsável por editar uma atividade existente """
     def editar(self):
 
         lista_de_atividades = []
@@ -81,6 +95,7 @@ class Atividade(models.Model):
 
         return True
 
+    """ Método reponsável por remover todas as atividades existentes """
     def limpar(self):
 
         lista_de_atividades = []
@@ -90,6 +105,7 @@ class Atividade(models.Model):
 
         return lista_de_atividades
 
+    """ Método reponsável por excluir uma atividade existente """
     def excluir(self):
 
         lista_de_atividades = []
@@ -133,6 +149,7 @@ class Atividade(models.Model):
 
         return True
 
+    """ Método reponsável por tornar pendente novamente uma atividade que foi finalizada """
     def pendenciar(self):
 
         lista_de_atividades = []
@@ -159,24 +176,27 @@ class Atividade(models.Model):
 
         return True
 
+    """ Método mostrar uma propriedade do objeto em forma de string """
     def __str__(self):
         return self.titulo
 
+    """ Anotações de propriedades da classe """
     @property
     def id_atividade(self):
-		return self.__id_atividade
+        return self.__id_atividade
 
     @property
     def titulo(self):
-		return self.__titulo
+        return self.__titulo
 
     @property
     def descricao(self):
-		return self.__descricao
+        return self.__descricao
 
     @property
     def status(self):
-		return self.__status
+        return self.__status
 
+    """ Método reponsável por igonar os migrations do django """
     class Meta:
         managed = False
