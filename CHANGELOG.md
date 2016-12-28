@@ -1,3 +1,11 @@
+v0.0.4 (28/12/2016)
+===================
+## features
+- atividade
+    - finalização
+    - tornar pendente novamente
+    - salvar a data de criação automáticamente
+
 v0.0.3 (28/12/2016)
 ===================
 ## features
