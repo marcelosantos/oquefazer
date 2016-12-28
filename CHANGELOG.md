@@ -1,3 +1,8 @@
+v0.0.12 (28/12/2016)
+===================
+## hotfixes
+- atualizando readme com informações sobre o deploy no Heroku
+
 v0.0.11 (28/12/2016)
 ===================
 ## hotfixes
