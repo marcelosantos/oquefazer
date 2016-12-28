@@ -1,3 +1,8 @@
+v0.0.13 (28/12/2016)
+===================
+## hotfixes
+- refatorando métodos do modelo de persistência em arquivos json
+
 v0.0.12 (28/12/2016)
 ===================
 ## hotfixes

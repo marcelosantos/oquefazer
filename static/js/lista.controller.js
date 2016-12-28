@@ -35,7 +35,7 @@
             self.listagem_finalizados = [];
 
             for (var i = 0; i < atividades.length; i++){
-                console.log(atividades[i]);
+                //console.log(atividades[i]);
                 if(atividades[i].status == 'false'){
                     self.listagem_pendentes.push(atividades[i]);
                 }else{
