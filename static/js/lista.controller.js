@@ -1,9 +1,9 @@
 (function(){
 
     angular.module('oquefazer.app')
-        .controller('ListaController', ['$scope', '$http', '$location', ListaController]);
+        .controller('ListaController', ['$scope', '$http', '$location','$timeout', ListaController]);
 
-    function ListaController ($scope, $http, $location) {
+    function ListaController ($scope, $http, $location, $timeout) {
 
         //Declaração de propriedades do controller
         var self = this;
@@ -88,6 +88,7 @@
         function sucessoListagem (response) {
             self.listagem = response.data;
             atualizarListagem(self.listagem);
+            $timeout(listar, 10000);
         }
 
         function erroListagem() {

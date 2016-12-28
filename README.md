@@ -4,6 +4,8 @@
 
 Este projeto é apenas um estudo de caso simples, que pode melhorar, eu foquei no essencial do projeto, cadastrar as atividades, mudar o status das mesmas, listar e excluir. Como melhorias futuras podem existir diálogos de confirmação nas ações de exclusão geral ou por atividade, opção de data com calendário, paginação etc.
 
+Esta aplicação possui URL com retornos no padrão JSON (JavaScript Object Notation), não fiz uso de nenhuma lib para API REST, em virtude do tempo, mas é tranquilo por exemplo fazer o uso do djangorestframework ou algo do tipo.
+
 ### Deploy no Heroku
 
 * https://oquefazer.herokuapp.com/
@@ -11,12 +13,18 @@ Este projeto é apenas um estudo de caso simples, que pode melhorar, eu foquei n
 ### Executando 1 dinamo gratuito no Heroku
 
 0. entre no diretório root  da aplicação `cd pasta_raiz_do_projeto`
+0. execute `heroku login`
+0. informe suas credenciais
+0. envie suas modificações para o master no Heroku `git push heroku master`
 0. execute `heroku ps:scale web=1`
 
 ### Dependências
 
 0. Python 2.7.x
 0. Django 1.9.x
+0. Materialize
+0. JQuery
+0. Angular JS 1.x
 
 ### Execute o projeto com o comando abaixo
 

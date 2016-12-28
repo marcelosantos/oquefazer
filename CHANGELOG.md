@@ -1,3 +1,8 @@
+v0.0.15 (28/12/2016)
+===================
+## hotfixes
+- melhorias na documentação e atualização a cada 10 segundos
+
 v0.0.14 (28/12/2016)
 ===================
 ## hotfixes
