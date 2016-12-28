@@ -1,3 +1,8 @@
+v0.0.7 (28/12/2016)
+===================
+## features
+- adicionando screenshot do projeto
+
 v0.0.6 (28/12/2016)
 ===================
 ## features
