@@ -20,6 +20,6 @@ from lista import views as lista_views
 urlpatterns = [
     url(r'^$', lista_views.InicialView.as_view(), name='inicial'),
     url(r'^adicionar/$', lista_views.adiciona),
-    url(r'^lista/$', lista_views.lista),
+    url(r'^listar/$', lista_views.lista),
     url(r'^admin/', admin.site.urls),
 ]

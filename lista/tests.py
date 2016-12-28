@@ -6,30 +6,30 @@ from .models import Atividade
 
 class ProjetoTest(TestCase):
 
+    atividadeMock = {'titulo': 'Fazer', 'descricao': 'Compras', 'status': 'false'}
+
     def test_pagina_inicial(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
 
     def test_adiciona_atividade(self):
-        response = self.client.post('/adicionar/', {'titulo': 'Fazer', 'descricao': 'Compras'})
+        response = self.client.post('/adicionar/', self.atividadeMock)
         self.assertEqual(response.status_code, 200)
 
-    def test_lista_atividade(self):
-        response = self.client.get('/lista/')
+    def test_pagina_lista_atividade(self):
+        response = self.client.get('/listar/')
         self.assertEqual(response.status_code, 200)
+
+    def test_listagem_de_atividades(self):
+        response = self.client.get('/listar/')
+        self.assertContains(response, 'titulo')
 
 class AtividadeModelTest(TestCase):
 
     def test_titulo_atividade(self):
-        atividade = Atividade(titulo="Fazer Compras", descricao=None)
-        self.assertEqual(str(atividade), atividade.titulo)
+        atividade = Atividade(titulo="Fazer Compras", descricao=None, status=None)
+        self.assertEqual("Fazer Compras", atividade.titulo)
 
     def test_descricao_atividade(self):
-        atividade = Atividade(titulo=None, descricao="Preciso fazer as compras da semana")
-        pass
-
-    #def test_uma_atividade(self):
-    #    Atividade.objects.create(titulo="1-titulo", descricao="1-descricao")
-    #    response = self.client.get('/')
-    #    self.assertContains(response, '1-titulo')
-    #    self.assertContains(response, '1-descricao')
+        atividade = Atividade(titulo=None, descricao="Preciso fazer as compras da semana", status=None)
+        self.assertEqual("Preciso fazer as compras da semana", atividade.descricao)
