@@ -1,3 +1,8 @@
+v0.0.8 (28/12/2016)
+===================
+## hotfixes
+- removendo arquivo do sqlite3 criado automaticamente pelo django
+
 v0.0.7 (28/12/2016)
 ===================
 ## features

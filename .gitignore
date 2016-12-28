@@ -1,4 +1,4 @@
 *.pyc
 .DS_Store*
-*.db
+db.sqlite3
 static/lib/*
