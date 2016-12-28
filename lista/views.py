@@ -115,6 +115,33 @@ def limpar(request):
     except Exception, ex:
         raise ErroGeral("Houve um erro! ", ex)
 
+""" Função para excluir as informações da atividade informada """
+def excluir(request):
+
+    try:
+
+        """ Se a requisição for pelo método POST """
+        if(request.method == 'POST' and request.POST.get('id_atividade')):
+
+            """ Recebendo os valores do form """
+            id_atividade = request.POST.get('id_atividade')
+
+            """ Cria um modelo de Atividade e basenado-se no id da atividade enviados no form """
+            atividade = Atividade(None, None, None, id_atividade)
+
+            """ Persite as informações """
+            atividade.excluir()
+
+            """ Responde com o conteúdo existente no arquivo """
+            return HttpResponse(json.dumps(atividade.listar()), content_type='application/json')
+        else:
+
+            """ Se a requisição não for pelo método POST """
+            return HttpResponse(json.dumps({'message':'Erro ao processar requisição'}), content_type='application/json')
+
+    except Exception, ex:
+        raise ErroGeral("Houve um erro! ", ex)
+
 """ Definição da template inicial """
 class InicialView(TemplateView):
 

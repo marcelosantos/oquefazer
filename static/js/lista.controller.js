@@ -21,6 +21,7 @@
         self.visualizar = visualizar;
         self.editar = editar;
         self.limpar = limpar;
+        self.excluir = excluir;
 
         listar();
 
@@ -40,6 +41,12 @@
 
             }
 
+            self.atividade = {};
+            self.atividade.status = false;
+
+            self.atividadeEdicao = {};
+            self.atividadeEdicao.status = false;
+
         }
 
         //Função para adicionar atividade
@@ -51,7 +58,7 @@
                 "status": atividade.status
             };
 
-            $http.post('/adicionar/', atividade)
+            $http.post('/adicionar/', self.atividade)
                 .then(sucessoAdicao,erroAdicao);
 
         };
@@ -60,8 +67,6 @@
             self.listagem = response.data;
             atualizarListagem(self.listagem);
             Materialize.toast('Atividade cadastrada com sucesso!', 4000);
-            self.atividade = {};
-            self.atividade.status = false;
         }
 
         function erroAdicao() {
@@ -144,6 +149,30 @@
             Materialize.toast(ERRO, 6000);
         }
 
+        //Função para excluir atividade
+        function excluir(atividade) {
+
+            self.atividade = {
+                "id_atividade": atividade.id_atividade,
+            };
+
+            $http.post('/excluir/', self.atividade)
+                .then(sucessoExclusao,erroExclusao);
+
+        };
+
+        function sucessoExclusao(response) {
+
+            self.listagem = response.data;
+            atualizarListagem(self.listagem);
+            Materialize.toast('Atividade removida com sucesso!', 4000);
+
+        }
+
+        function erroExclusao() {
+            var ERRO = "Erro ao remover atividade";
+            Materialize.toast(ERRO, 6000);
+        }
 
     }
 

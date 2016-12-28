@@ -32,6 +32,10 @@ class ProjetoTest(TestCase):
         response = self.client.get('/limpar/')
         self.assertEqual(response.status_code, 200)
 
+    def test_excluir_atividade(self):
+        response = self.client.get('/excluir/')
+        self.assertEqual(response.status_code, 200)
+
 class AtividadeModelTest(TestCase):
 
     def test_titulo_atividade(self):

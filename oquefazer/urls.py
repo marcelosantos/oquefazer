@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^listar/$', lista_views.listar),
     url(r'^editar/$', lista_views.editar),
     url(r'^limpar/$', lista_views.limpar),
+    url(r'^excluir/$', lista_views.excluir),
     url(r'^admin/', admin.site.urls),
 ]

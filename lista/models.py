@@ -85,6 +85,23 @@ class Atividade(models.Model):
 
         return lista_de_atividades
 
+    def excluir(self):
+
+        lista_de_atividades = []
+
+        if(os.path.getsize(ARQUIVO_ATIVIDADES_JSON) > 20):
+            with io.open(ARQUIVO_ATIVIDADES_JSON, 'r', encoding='utf-8') as ler_atividades:
+                lista_de_atividades = json.load(ler_atividades)
+
+        for idx, atividade in enumerate(lista_de_atividades):
+            if self.id_atividade == atividade['id_atividade']:
+                del lista_de_atividades[idx]
+
+        with io.open(ARQUIVO_ATIVIDADES_JSON, 'w', encoding='utf-8') as persiste_atividades:
+            persiste_atividades.write(unicode(json.dumps(lista_de_atividades, ensure_ascii=True)))
+
+        return True
+
     def __str__(self):
         return self.titulo
 

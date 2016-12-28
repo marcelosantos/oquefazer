@@ -59,7 +59,6 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        {{vm.atividadeEdicao.status}}
                         <input ng-checked="vm.atividadeEdicao.status == 'true'" ng-model="vm.atividadeEdicao.status" value="vm.atividadeEdicao.status" type="checkbox" id="status" />
                         <label for="status">Atividade Finalizada ?</label>
                     </div>
@@ -91,13 +90,13 @@
             <div class="col s12 m4" ng-repeat="atividade in vm.listagem_pendentes">
                 <div class="card blue-grey darken-1">
                     <div class="card-content white-text">
-                        <span class="card-title" ng-bind="atividade.titulo"></span>
-                        <p ng-bind="atividade.descricao"></p>
-                        <p ng-bind="atividade.status != 'true' ? 'Pendente' : 'Finalizado'"></p>
+                        <span class="card-title" ng-bind="'Título: ' + atividade.titulo"></span>
+                        <p ng-bind="'Descrição: ' + atividade.descricao"></p>
+                        <p ng-bind="atividade.status != 'true' ? 'Status: Pendente' : 'Status: Finalizado'"></p>
                     </div>
                     <div class="card-action center">
-                        <a class="btn" ng-click="vm.visualizar(atividade)">Editar</a>
-                        <a class="btn red" ng-click="vm.visualizar(atividade)">x</a>
+                        <button class="btn" ng-click="vm.visualizar(atividade)">Editar</button>
+                        <button ng-disabled="!vm.form_cadastro" class="btn red" ng-click="vm.excluir(atividade)">x</button>
                     </div>
                 </div>
             </div>
@@ -110,7 +109,7 @@
                 <div class="card blue-grey darken-1">
                     <div class="card-content white-text">
                         <span class="card-title">INFORMAÇÃO</span>
-                        <p>Não existem atividades pendentes cadastradas</p>
+                        <p>Não existem atividades pendentes</p>
                     </div>
                 </div>
             </div>
@@ -130,13 +129,13 @@
             <div class="col s12 m4" ng-repeat="atividade in vm.listagem_finalizados">
                 <div class="card blue darken-1">
                     <div class="card-content">
-                        <span class="card-title" ng-bind="atividade.titulo"></span>
-                        <p ng-bind="atividade.descricao"></p>
-                        <p ng-bind="atividade.status != 'true' ? 'Pendente' : 'Finalizado'"></p>
+                        <span class="card-title" ng-bind="'Título: ' + atividade.titulo"></span>
+                        <p ng-bind="'Descrição: ' + atividade.descricao"></p>
+                        <p ng-bind="atividade.status != 'true' ? 'Status: Pendente' : 'Status: Finalizado'"></p>
                     </div>
                     <div class="card-action center">
-                        <a class="btn" ng-click="vm.visualizar(atividade)">Editar</a>
-                        <a class="btn red" ng-click="vm.visualizar(atividade)">x</a>
+                        <button disabled class="btn" ng-click="vm.visualizar(atividade)">Editar</button>
+                        <button ng-disabled="!vm.form_cadastro" class="btn red" ng-click="vm.excluir(atividade)">x</button>
                     </div>
                 </div>
             </div>
@@ -149,7 +148,7 @@
                 <div class="card blue-grey darken-1">
                     <div class="card-content white-text">
                         <span class="card-title">INFORMAÇÃO</span>
-                        <p>Não existem atividades pendentes cadastradas</p>
+                        <p>Não existem atividades finalizadas</p>
                     </div>
                 </div>
             </div>
