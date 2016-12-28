@@ -1,3 +1,8 @@
+v0.0.14 (28/12/2016)
+===================
+## hotfixes
+- refatorando botão de exclusão de todas as atividades finalizadas ou pendentes
+
 v0.0.13 (28/12/2016)
 ===================
 ## hotfixes
