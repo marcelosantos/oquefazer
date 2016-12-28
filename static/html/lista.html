@@ -37,7 +37,7 @@
 
             <div class="row" ng-if="!vm.form_edicao">
                 <button ng-disabled="form-atividade.$invalid" type="submit" class="btn-large waves-effect waves-light green">Cadastrar Tarefa</button>
-                <a ng-click="vm.limpar()" class="btn-large waves-effect waves-light right red">Remover Todas</a>
+                <a ng-click="vm.limpar()" ng-if="vm.listagem_pendentes.length > 0 && vm.listagem_finalizados.length > 0" class="btn-large waves-effect waves-light right red">Remover Todas</a>
             </div>
 
         </form>
