@@ -1,3 +1,9 @@
+v0.0.17 (29/12/2016)
+===================
+## hotfixes
+- melhoria no feedback ao usuário com preloading das requisições ajax
+- adicionando trecho CSS com código da animação
+
 v0.0.16 (28/12/2016)
 ===================
 ## hotfixes

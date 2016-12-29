@@ -21,6 +21,12 @@
 
         {% csrf_token %}
 
+        <div data-ng-if="loading">
+
+            <div class="loading"></div>
+
+        </div>
+
         <ng-view></ng-view>
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
