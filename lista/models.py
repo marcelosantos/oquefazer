@@ -126,7 +126,7 @@ class Atividade(models.Model):
         lista_de_atividades = self.atividades_existentes()
 
         for idx, atividade in enumerate(lista_de_atividades):
-            print atividade
+
             if self.id_atividade == atividade['id_atividade']:
                 finalizar_atividade = {
                     'id_atividade': atividade['id_atividade'],
@@ -148,7 +148,6 @@ class Atividade(models.Model):
         lista_de_atividades = self.atividades_existentes()
 
         for idx, atividade in enumerate(lista_de_atividades):
-            print atividade
             if self.id_atividade == atividade['id_atividade']:
                 finalizar_atividade = {
                     'id_atividade': atividade['id_atividade'],
